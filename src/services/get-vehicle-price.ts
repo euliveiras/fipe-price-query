@@ -9,11 +9,12 @@ export async function getVehiclePrice({
   year: string;
   brand: string;
 }) {
-  const { apiUrl } = getApiConfig();
+  const { apiUrl, apiToken } = getApiConfig();
   const url = new URL(
-    `${apiUrl}/carros/marcas/${brand}/modelos/${model}/anos/${year}`,
+    `${apiUrl}/cars/brands/${brand}/models/${model}/years/${year}`,
   );
-  const res = await fetch(url);
+  const headers = new Headers({ "X-Subscription-Token": apiToken });
+  const res = await fetch(url, { headers });
   const json = await res.json();
   return json;
 }

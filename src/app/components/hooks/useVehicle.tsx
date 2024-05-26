@@ -19,14 +19,15 @@ export type Year = {
 };
 
 export function useVehicle() {
-  const { apiUrl } = getApiConfig();
+  const { apiUrl, apiToken } = getApiConfig();
+  const headers = new Headers({ "X-Subscription-Token": apiToken });
 
   const getVehiclebrands = async (): Promise<Brand[]> => {
-    const url = new URL(apiUrl + "/carros/marcas");
-    const res = await fetch(url);
+    const url = new URL(apiUrl + "/cars/brands");
+    const res = await fetch(url, { headers });
     const json = await res.json();
 
-    return json.map((brand: { codigo: string; nome: string }) =>
+    return json.map((brand: { code: string; name: string }) =>
       BrandsMapper.toFront(brand),
     );
   };
@@ -36,8 +37,8 @@ export function useVehicle() {
   ): Promise<{ models: Model[]; years: Year[] }> => {
     if (!e) return { models: [], years: [] };
 
-    const url = new URL(`${apiUrl}/carros/marcas/${e}/modelos`);
-    const res = await fetch(url);
+    const url = new URL(`${apiUrl}/cars/brands/${e}/models`);
+    const res = await fetch(url, { headers });
     const json = await res.json();
 
     return {

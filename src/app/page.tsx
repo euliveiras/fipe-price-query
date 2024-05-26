@@ -4,10 +4,12 @@ import Paper from "@mui/material/Paper";
 import { useVehicle } from "./components/hooks/useVehicle";
 import { Form } from "./components/form/container";
 import { getVehiclePrice } from "@/services/get-vehicle-price";
+import Link from "@mui/material/Link";
+import { ColorSwitch } from "./components/ColorSwitch";
 
 function Header() {
   return (
-    <Box component="header" display={"grid"} gap={1}>
+    <Box component="header" display={"grid"} gap={0.1}>
       <Typography
         component="h1"
         typography={"title"}
@@ -45,12 +47,13 @@ export default async function Home({
   }
 
   return (
-    <Box component="main" height={1}>
-      <Box height={1} width={1} display="flex" justifyContent="center" p={2}>
+    <Box component="main" height={1} position={"relative"}>
+      <ColorSwitch />
+      <Box height={1} width={1} display="flex" justifyContent="center" p={1}>
         <Box
           display="flex"
           flexDirection={"column"}
-          gap={2}
+          gap={1}
           minHeight={100}
           width={1}
           maxWidth={560}
@@ -62,7 +65,7 @@ export default async function Home({
             component={Box}
             width={0.85}
             paddingX={4}
-            paddingBottom={8}
+            paddingBottom={5}
             paddingTop={4}
             marginX={"auto"}
           >
@@ -77,6 +80,20 @@ export default async function Home({
           </Paper>
         </Box>
       </Box>
+      <Link
+        href="https://github.com/euliveiras"
+        target="__blank"
+        rel="noopener"
+        color={"inherit"}
+        fontSize={"0.8rem"}
+        fontStyle={"italic"}
+        position={"absolute"}
+        left={2}
+        bottom={2}
+        sx={{ textDecoration: "underline" }}
+      >
+        made it by euliveiras
+      </Link>
     </Box>
   );
 }

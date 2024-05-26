@@ -9,6 +9,47 @@ import { ModelInput } from "./model-input";
 import { useState } from "react";
 import { YearInput } from "./year-input";
 import { useFormState } from "react-dom";
+import { green, lightGreen, teal } from "@mui/material/colors";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+
+type PriceProps = {
+  vehicle: { name: string; price: string };
+};
+
+function Price({ vehicle }: PriceProps) {
+  return (
+    <Stack
+      width={1}
+      sx={{ backgroundColor: green[400], borderRadius: 1, p: 1 }}
+      alignItems={"center"}
+      gap={1}
+      mt={3}
+    >
+      <Typography
+        variant="title"
+        component="h2"
+        width={"fit-content"}
+        fontSize={"1.5rem"}
+        textAlign={"center"}
+      >
+        Tabela Fipe: Preço {vehicle.name}
+      </Typography>
+      <Typography
+        width={"fit-content"}
+        fontWeight={"bold"}
+        py={1}
+        px={2}
+        sx={{ backgroundColor: green["600"], borderRadius: 100 }}
+      >
+        {vehicle.price}
+      </Typography>
+      <Typography variant="caption" width={"fit-content"}>
+        Este é o preço de compra do veículo
+      </Typography>
+    </Stack>
+  );
+}
 
 type Props = {
   initialData: {
@@ -66,48 +107,49 @@ export function Form({ initialData, action }: Props) {
     router.push(pathname + "?" + params);
   };
 
-console.log("h", result)
-
   return (
-    <Box
-      action={formAction}
-      component="form"
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      width={1}
-    >
-      <BrandInput
-        data={initialData.brands}
-        onBrandChange={onBrandChange}
-        value={filters.brand}
-      />
-      <ModelInput
-        data={models}
-        onModelChange={onModelChange}
-        disabled={!filters.brand}
-        value={filters.model}
-      />
-      <YearInput
-        data={years}
-        onYearChange={onYearChange}
-        disabled={!filters.brand}
-        value={filters.year}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        disabled={!filters.brand || !filters.model || !filters.year}
-        sx={{
-          width: "fit-content",
-          paddingX: 8,
-          marginX: "auto",
-          marginTop: 3,
-        }}
+    <>
+      <Box
+        action={formAction}
+        component="form"
+        display="flex"
+        flexDirection="column"
+        gap={2}
+        width={1}
       >
-        Consultar
-      </Button>
-    </Box>
+        <BrandInput
+          data={initialData.brands}
+          onBrandChange={onBrandChange}
+          value={filters.brand}
+        />
+        <ModelInput
+          data={models}
+          onModelChange={onModelChange}
+          disabled={!filters.brand}
+          value={filters.model}
+        />
+        <YearInput
+          data={years}
+          onYearChange={onYearChange}
+          disabled={!filters.brand}
+          value={filters.year}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          disabled={!filters.brand || !filters.model || !filters.year}
+          sx={{
+            width: "fit-content",
+            paddingX: 8,
+            marginX: "auto",
+            marginTop: 1,
+          }}
+        >
+          Consultar
+        </Button>
+      </Box>
+      <Price vehicle={{ name: "Chevrolet Cruze 2019", price: "91.618" }} />
+    </>
   );
 }

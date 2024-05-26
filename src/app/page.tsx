@@ -1,9 +1,9 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Paper from "@mui/material/Paper";
+import { useVehicle } from "./components/hooks/useVehicle";
+import { Form } from "./components/form/container";
+import { getVehiclePrice } from "@/services/get-vehicle-price";
 
 function Header() {
   return (
@@ -23,42 +23,58 @@ function Header() {
   );
 }
 
-export default function Home() {
-  async function createInvoice(formData: FormData) {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { brand?: string; model?: string; year?: string };
+}) {
+  const { getVehiclebrands, getVehicleModels } = useVehicle();
+  const [brands, initialData] = await Promise.all([
+    getVehiclebrands(),
+    getVehicleModels(searchParams.brand),
+  ]);
+
+  async function action(prev: any, form: FormData) {
     "use server";
+    const brand = form.get("brand") as string;
+    const year = form.get("year") as string;
+    const model = form.get("model") as string;
 
-    const rawFormData = {
-      customerId: formData.get("customerId"),
-      amount: formData.get("amount"),
-      status: formData.get("status"),
-    };
-
-    // mutate data
-    // revalidate cache
+    const data =  await getVehiclePrice({ brand, model, year });
+return data
   }
+
   return (
     <Box component="main" height={1}>
       <Box height={1} width={1} display="flex" justifyContent="center" p={2}>
-        <Box minHeight={100} minWidth={100} paddingTop={10}>
+        <Box
+          display="flex"
+          flexDirection={"column"}
+          gap={2}
+          minHeight={100}
+          width={1}
+          maxWidth={560}
+          minWidth={300}
+          paddingTop={1}
+        >
           <Header />
-          <Box component="form" display="flex" flexDirection="column" gap={2}>
-            <FormControl fullWidth>
-              <InputLabel id="form-vehicle-brand">Marca</InputLabel>
-              <Select labelId="form-vehicle-brand" id="brand" label="brand">
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="form-vehicle-model">Modelo</InputLabel>
-              <Select labelId="form-vehicle-model" id="model" label="model">
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+          <Paper
+            component={Box}
+            width={0.85}
+            paddingX={4}
+            paddingBottom={8}
+            paddingTop={4}
+            marginX={"auto"}
+          >
+            <Form
+              initialData={{
+                brands,
+                models: initialData.models,
+                years: initialData.years,
+              }}
+              action={action}
+            />
+          </Paper>
         </Box>
       </Box>
     </Box>

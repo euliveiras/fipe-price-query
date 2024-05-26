@@ -31,7 +31,7 @@ const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
     subtitle1: {
-      fontSize: "1.15rem",
+      fontSize: "1.5rem",
       fontWeight: "semibold",
       textAlign: "center",
     },

@@ -16,7 +16,7 @@ type Props = {
     models: Model[];
     years: Year[];
   };
-  action(data: FormData): FormData;
+  action(prev: any, data: FormData): Promise<FormData>;
 };
 
 export function Form({ initialData, action }: Props) {

@@ -40,8 +40,8 @@ export default async function Home({
     const year = form.get("year") as string;
     const model = form.get("model") as string;
 
-    const data =  await getVehiclePrice({ brand, model, year });
-return data
+    const data = await getVehiclePrice({ brand, model, year });
+    return data;
   }
 
   return (

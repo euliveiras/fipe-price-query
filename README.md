@@ -53,6 +53,6 @@ Este projeto está licenciado sob a Licença MIT
 ## Contato
 
 - autor: matheus oliveira da silva
-- linkedin -> [linkedin/euliveiras](https://www.linkedin.com/in/euliveiras/) - email@example.com
+- linkedin -> [linkedin/euliveiras](https://www.linkedin.com/in/euliveiras/) 
 - email -> matheus.skm@hotmail.com
 

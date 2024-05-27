@@ -9,7 +9,7 @@ import { ModelInput } from "./model-input";
 import { useState } from "react";
 import { YearInput } from "./year-input";
 import { useFormState, useFormStatus } from "react-dom";
-import { green } from "@mui/material/colors";
+import { blue, green } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { CircularProgress } from "@mui/material";
@@ -35,6 +35,32 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
     >
       {pending ? <CircularProgress size={28} color="inherit" /> : "Consultar"}
     </Button>
+  );
+}
+
+function VehicleNotFounded() {
+  return (
+    <Box
+      display={"flex"}
+      width={1}
+      sx={{ backgroundColor: blue[400], borderRadius: 1, p: 2 }}
+      justifyContent={"center"}
+      alignItems={"center"}
+      gap={1}
+      mt={3}
+      color={"white"}
+    >
+      <Typography
+        variant="title"
+        component="h2"
+        width={"fit-content"}
+        fontSize={"1.5rem"}
+        textAlign={"center"}
+        color="inherit"
+      >
+        Nenhuma informação encontrada
+      </Typography>
+    </Box>
   );
 }
 
@@ -131,6 +157,8 @@ export function Form({ initialData, action }: Props) {
     router.push(pathname + "?" + params);
   };
 
+  console.log(result);
+
   return (
     <>
       <Box
@@ -162,16 +190,15 @@ export function Form({ initialData, action }: Props) {
           disabled={!filters.brand || !filters.model || !filters.year}
         />
       </Box>
-      {result && result.ok
-        ? result.vehicle && (
-            <Price
-              vehicle={{
-                name: result.vehicle?.model,
-                price: result.vehicle?.price,
-              }}
-            />
-          )
-        : "nada encontrado"}
+      {result?.ok && result.vehicle && (
+        <Price
+          vehicle={{
+            name: result.vehicle?.model,
+            price: result.vehicle?.price,
+          }}
+        />
+      )}
+      {result && !result?.ok && <VehicleNotFounded />}
     </>
   );
 }

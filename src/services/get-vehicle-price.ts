@@ -10,12 +10,11 @@ export async function getVehiclePrice({
   year: string;
   brand: string;
 }) {
-  const { apiUrl, apiToken } = getApiConfig();
+  const { apiUrl } = getApiConfig();
   const url = new URL(
     `${apiUrl}/carros/marcas/${brand}/modelos/${model}/anos/${year}`,
   );
-  const headers = new Headers({ "X-Subscription-Token": apiToken });
-  const res = await fetch(url, { headers });
+  const res = await fetch(url);
   const json = await res.json();
   if (res.status < 200 || res.status >= 300) {
     return { ok: false };

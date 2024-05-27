@@ -1,4 +1,4 @@
-import { Year } from "@/app/components/hooks/useVehicle";
+import { Year } from "@/models/year";
 
 export class YearMapper {
   static toFront(data: { codigo: string; nome: string }): Year {

@@ -1,4 +1,4 @@
-import { Vehicle } from "@/app/components/hooks/useVehicle";
+import { Vehicle } from "@/models/vehicle";
 
 export class VehicleMapper {
   static toFront(data: {

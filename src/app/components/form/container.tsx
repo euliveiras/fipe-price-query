@@ -1,102 +1,20 @@
 "use client";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { BrandInput } from "./brand-input";
-import { Brand, Model, Vehicle, Year, useVehicle } from "../hooks/useVehicle";
+import { useVehicle } from "../hooks/use-vehicle";
 import { useRouter } from "next/navigation";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ModelInput } from "./model-input";
 import { useState } from "react";
 import { YearInput } from "./year-input";
-import { useFormState, useFormStatus } from "react-dom";
-import { blue, green } from "@mui/material/colors";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import { CircularProgress } from "@mui/material";
-
-type PriceProps = {
-  vehicle: { name: string; price: string };
-};
-
-function SubmitButton({ disabled }: { disabled: boolean }) {
-  const { pending } = useFormStatus();
-  return (
-    <Button
-      type={pending ? "button" : "submit"}
-      variant="contained"
-      color="secondary"
-      disabled={disabled}
-      sx={{
-        width: "fit-content",
-        paddingX: 8,
-        marginX: "auto",
-        marginTop: 1,
-      }}
-    >
-      {pending ? <CircularProgress size={28} color="inherit" /> : "Consultar"}
-    </Button>
-  );
-}
-
-function VehicleNotFounded() {
-  return (
-    <Box
-      display={"flex"}
-      width={1}
-      sx={{ backgroundColor: blue[400], borderRadius: 1, p: 2 }}
-      justifyContent={"center"}
-      alignItems={"center"}
-      gap={1}
-      mt={3}
-      color={"white"}
-    >
-      <Typography
-        variant="title"
-        component="h2"
-        width={"fit-content"}
-        fontSize={"1.5rem"}
-        textAlign={"center"}
-        color="inherit"
-      >
-        Nenhuma informação encontrada
-      </Typography>
-    </Box>
-  );
-}
-
-function Price({ vehicle }: PriceProps) {
-  return (
-    <Stack
-      width={1}
-      sx={{ backgroundColor: green[400], borderRadius: 1, p: 1 }}
-      alignItems={"center"}
-      gap={1}
-      mt={3}
-    >
-      <Typography
-        variant="title"
-        component="h2"
-        width={"fit-content"}
-        fontSize={"1.5rem"}
-        textAlign={"center"}
-      >
-        Tabela Fipe: Preço {vehicle.name}
-      </Typography>
-      <Typography
-        width={"fit-content"}
-        fontWeight={"bold"}
-        py={1}
-        px={2}
-        sx={{ backgroundColor: green["600"], borderRadius: 100 }}
-      >
-        {vehicle.price}
-      </Typography>
-      <Typography variant="caption" width={"fit-content"}>
-        Este é o preço de compra do veículo
-      </Typography>
-    </Stack>
-  );
-}
+import { useFormState } from "react-dom";
+import { Price } from "./price";
+import { SubmitButton } from "./submit-button";
+import { VehicleNotFounded } from "./vehicle-not-found";
+import { Brand } from "@/models/brand";
+import { Model } from "@/models/model";
+import { Year } from "@/models/year";
+import { Vehicle } from "@/models/vehicle";
 
 type Props = {
   initialData: {
@@ -156,8 +74,6 @@ export function Form({ initialData, action }: Props) {
     setFilters((f) => ({ ...f, year: e }));
     router.push(pathname + "?" + params);
   };
-
-  console.log(result);
 
   return (
     <>

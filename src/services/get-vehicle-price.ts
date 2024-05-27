@@ -1,4 +1,4 @@
-import { VehicleMapper } from "@/mappers/VehicleMapper";
+import { VehicleMapper } from "@/mappers/vehicle-mapper";
 import { getApiConfig } from "@/utils/get-api-config";
 
 export async function getVehiclePrice({

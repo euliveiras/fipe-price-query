@@ -2,7 +2,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Year } from "../hooks/useVehicle";
+import { Year } from "@/models/year";
 
 type Props = {
   disabled: boolean;

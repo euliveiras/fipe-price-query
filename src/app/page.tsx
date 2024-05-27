@@ -1,29 +1,11 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { useVehicle } from "./components/hooks/useVehicle";
+import { useVehicle } from "./components/hooks/use-vehicle";
 import { Form } from "./components/form/container";
 import { getVehiclePrice } from "@/services/get-vehicle-price";
 import Link from "@mui/material/Link";
-import { ColorSwitch } from "./components/ColorSwitch";
-
-function Header() {
-  return (
-    <Box component="header" display={"grid"} gap={0.1}>
-      <Typography
-        component="h1"
-        typography={"title"}
-        marginX={"auto"}
-        width={"fit-content"}
-      >
-        Tabela Fipe
-      </Typography>
-      <Typography component="h2" typography={"subtitle1"}>
-        Consulte o valor de um veículo de forma gratuita
-      </Typography>
-    </Box>
-  );
-}
+import { ColorSwitch } from "./components/color-switch";
+import { Header } from "./components/header";
 
 export default async function Home({
   searchParams,

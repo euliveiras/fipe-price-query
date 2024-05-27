@@ -1,4 +1,4 @@
-import { Model } from "@/app/components/hooks/useVehicle";
+import { Model } from "@/models/model";
 
 export class ModelMapper {
   static toFront(data: { codigo: string; nome: string }): Model {

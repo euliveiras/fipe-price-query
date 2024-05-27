@@ -1,28 +1,10 @@
-import { BrandsMapper } from "@/mappers/BrandsMapper";
+import { BrandsMapper } from "@/mappers/brands-mapper";
 import { getApiConfig } from "../../../utils/get-api-config";
-import { ModelMapper } from "@/mappers/ModelsMapper";
-import { YearMapper } from "@/mappers/YearMapper";
-
-export type Vehicle = {
-  price: string;
-  brand: string;
-  model: string;
-};
-
-export type Brand = {
-  code: string;
-  name: string;
-};
-
-export type Model = {
-  code: string;
-  name: string;
-};
-
-export type Year = {
-  code: string;
-  name: string;
-};
+import { ModelMapper } from "@/mappers/models-mapper";
+import { YearMapper } from "@/mappers/year-mapper";
+import { Brand } from "@/models/brand";
+import { Model } from "@/models/model";
+import { Year } from "@/models/year";
 
 export function useVehicle() {
   const { apiUrl } = getApiConfig();

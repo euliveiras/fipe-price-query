@@ -2,7 +2,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Brand } from "../hooks/useVehicle";
+import { Brand } from "@/models/brand";
 
 type Props = {
   data: Brand[];

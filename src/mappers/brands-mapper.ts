@@ -1,4 +1,4 @@
-import { Brand } from "@/app/components/hooks/useVehicle";
+import { Brand } from "@/models/brand";
 
 export class BrandsMapper {
   static toFront(data: { codigo: string; nome: string }): Brand {

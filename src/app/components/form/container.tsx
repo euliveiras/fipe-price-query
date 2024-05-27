@@ -2,20 +2,41 @@
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { BrandInput } from "./brand-input";
-import { Brand, Model, Year, useVehicle } from "../hooks/useVehicle";
+import { Brand, Model, Vehicle, Year, useVehicle } from "../hooks/useVehicle";
 import { useRouter } from "next/navigation";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ModelInput } from "./model-input";
 import { useState } from "react";
 import { YearInput } from "./year-input";
-import { useFormState } from "react-dom";
-import { green, lightGreen, teal } from "@mui/material/colors";
+import { useFormState, useFormStatus } from "react-dom";
+import { green } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import { CircularProgress } from "@mui/material";
 
 type PriceProps = {
   vehicle: { name: string; price: string };
 };
+
+function SubmitButton({ disabled }: { disabled: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      type={pending ? "button" : "submit"}
+      variant="contained"
+      color="secondary"
+      disabled={disabled}
+      sx={{
+        width: "fit-content",
+        paddingX: 8,
+        marginX: "auto",
+        marginTop: 1,
+      }}
+    >
+      {pending ? <CircularProgress size={28} color="inherit" /> : "Consultar"}
+    </Button>
+  );
+}
 
 function Price({ vehicle }: PriceProps) {
   return (
@@ -57,7 +78,10 @@ type Props = {
     models: Model[];
     years: Year[];
   };
-  action(prev: any, data: FormData): Promise<FormData>;
+  action(
+    prev: any,
+    data: FormData,
+  ): Promise<{ ok: boolean; vehicle?: Vehicle } | null>;
 };
 
 export function Form({ initialData, action }: Props) {
@@ -65,7 +89,7 @@ export function Form({ initialData, action }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { getVehicleModels } = useVehicle();
-  const [result, formAction] = useFormState(action, new FormData());
+  const [result, formAction] = useFormState(action, null);
 
   const [filters, setFilters] = useState(() => {
     const brand = searchParams.get("brand");
@@ -134,22 +158,20 @@ export function Form({ initialData, action }: Props) {
           disabled={!filters.brand}
           value={filters.year}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
+        <SubmitButton
           disabled={!filters.brand || !filters.model || !filters.year}
-          sx={{
-            width: "fit-content",
-            paddingX: 8,
-            marginX: "auto",
-            marginTop: 1,
-          }}
-        >
-          Consultar
-        </Button>
+        />
       </Box>
-      <Price vehicle={{ name: "Chevrolet Cruze 2019", price: "91.618" }} />
+      {result && result.ok
+        ? result.vehicle && (
+            <Price
+              vehicle={{
+                name: result.vehicle?.model,
+                price: result.vehicle?.price,
+              }}
+            />
+          )
+        : "nada encontrado"}
     </>
   );
 }

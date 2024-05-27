@@ -92,7 +92,7 @@ export default async function Home({
         bottom={2}
         sx={{ textDecoration: "underline" }}
       >
-        made it by euliveiras
+        builded by euliveiras
       </Link>
     </Box>
   );

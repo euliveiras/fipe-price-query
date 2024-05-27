@@ -1,3 +1,4 @@
+import { VehicleMapper } from "@/mappers/VehicleMapper";
 import { getApiConfig } from "@/utils/get-api-config";
 
 export async function getVehiclePrice({
@@ -11,10 +12,13 @@ export async function getVehiclePrice({
 }) {
   const { apiUrl, apiToken } = getApiConfig();
   const url = new URL(
-    `${apiUrl}/cars/brands/${brand}/models/${model}/years/${year}`,
+    `${apiUrl}/carros/marcas/${brand}/modelos/${model}/anos/${year}`,
   );
   const headers = new Headers({ "X-Subscription-Token": apiToken });
   const res = await fetch(url, { headers });
   const json = await res.json();
-  return json;
+  if (res.status < 200 || res.status >= 300) {
+    return { ok: false };
+  }
+  return { ok: true, vehicle: VehicleMapper.toFront(json) };
 }

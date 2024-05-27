@@ -3,6 +3,12 @@ import { getApiConfig } from "../../../utils/get-api-config";
 import { ModelMapper } from "@/mappers/ModelsMapper";
 import { YearMapper } from "@/mappers/YearMapper";
 
+export type Vehicle = {
+  price: string;
+  brand: string;
+  model: string;
+};
+
 export type Brand = {
   code: string;
   name: string;
@@ -19,15 +25,14 @@ export type Year = {
 };
 
 export function useVehicle() {
-  const { apiUrl, apiToken } = getApiConfig();
-  const headers = new Headers({ "X-Subscription-Token": apiToken });
+  const { apiUrl } = getApiConfig();
 
   const getVehiclebrands = async (): Promise<Brand[]> => {
-    const url = new URL(apiUrl + "/cars/brands");
-    const res = await fetch(url, { headers });
+    const url = new URL(apiUrl + "/carros/marcas");
+    const res = await fetch(url);
     const json = await res.json();
 
-    return json.map((brand: { code: string; name: string }) =>
+    return json.map((brand: { codigo: string; nome: string }) =>
       BrandsMapper.toFront(brand),
     );
   };
@@ -37,8 +42,8 @@ export function useVehicle() {
   ): Promise<{ models: Model[]; years: Year[] }> => {
     if (!e) return { models: [], years: [] };
 
-    const url = new URL(`${apiUrl}/cars/brands/${e}/models`);
-    const res = await fetch(url, { headers });
+    const url = new URL(`${apiUrl}/carros/marcas/${e}/modelos`);
+    const res = await fetch(url);
     const json = await res.json();
 
     return {

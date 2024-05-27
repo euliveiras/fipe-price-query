@@ -19,6 +19,7 @@ export function ModelInput({ data, value, disabled, onModelChange }: Props) {
       <InputLabel id="vehicle-model">Modelo</InputLabel>
       <Select
         labelId="vehicle-model"
+data-testid="model"
         id="model"
         name="model"
         label="model"

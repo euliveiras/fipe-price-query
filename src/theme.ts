@@ -1,7 +1,6 @@
 "use client";
 import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {

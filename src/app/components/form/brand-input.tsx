@@ -19,6 +19,7 @@ export function BrandInput({ data, onBrandChange, value }: Props) {
       <Select
         value={value ?? ""}
         labelId="vehicle-brand"
+data-testid="brand"
         id="brand"
         label="brand"
         name="brand"

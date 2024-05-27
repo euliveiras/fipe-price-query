@@ -20,6 +20,7 @@ export function YearInput({ data, value, disabled, onYearChange }: Props) {
       <Select
         labelId="vehicle-year"
         id="year"
+        data-testid="year"
         name="year"
         label="year"
         disabled={disabled}

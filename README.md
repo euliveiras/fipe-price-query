@@ -2,7 +2,7 @@
 
 Pesquisa de preços de carros na tabela fipe.
 
-![](https://github.com/fipe-price-query/preview-fipe-query-price.gif)
+![](https://github.com/euliveiras/fipe-price-query/blob/main/preview-fipe-query-price.gif)
 
 ## Índice
 

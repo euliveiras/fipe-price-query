@@ -2,6 +2,8 @@
 
 Pesquisa de preços de carros na tabela fipe.
 
+![](https://github.com/fipe-price-query/preview-fipe-query-price.gif)
+
 ## Índice
 
 - [Instalação](#instalação)
